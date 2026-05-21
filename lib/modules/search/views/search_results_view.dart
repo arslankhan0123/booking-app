@@ -345,19 +345,33 @@ class SearchResultsView extends GetView<SearchScreenController> {
     final oldPrice = hotel['oldPrice'] as double;
     final newPrice = hotel['newPrice'] as double;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed('/hotel-details', arguments: {
+          'name': hotel['name'],
+          'rating': hotel['rating'],
+          'reviewText': hotel['reviewText'],
+          'reviewsCount': hotel['reviewsCount'],
+          'address': hotel['distanceText'], 
+          'stars': hotel['stars'],
+          'oldPrice': 'PKR ${oldPrice.toInt()}',
+          'newPrice': 'PKR ${newPrice.toInt()}',
+          'imageUrl': hotel['imageUrl'],
+        });
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -672,9 +686,9 @@ class SearchResultsView extends GetView<SearchScreenController> {
         ],
       ),
     ),
+    ),
   );
 }
-
   void _showSortBottomSheet(BuildContext context) {
     Get.bottomSheet(
       Container(
